@@ -50,7 +50,9 @@ app.use(passport.session());
 
 mongoose
   .connect(
-    `mongodb+srv://chilltrack:${process.env.DB_PASS}@cluster0-h53nv.gcp.mongodb.net/chilltrack?retryWrites=true&w=majority`,
+    process.env.DB_CONNECTION_STRING 
+    ? process.env.DB_CONNECTION_STRING 
+    : `mongodb+srv://chilltrack:${process.env.DB_PASS}@cluster0-h53nv.gcp.mongodb.net/chilltrack?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -429,3 +431,4 @@ passport.deserializeUser(function (obj, done) {
 
 const port = process.env.PORT || 3000;
 server.listen(port);
+console.log("listening on port: " + process.env.PORT);
